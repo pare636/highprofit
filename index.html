@@ -23,20 +23,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <body>
 <script>
 function sendIPToGoogle(ip) {
-  fetch("https://script.googleusercontent.com/macros/echo?user_content_key=T8Jn5EJBRRNAjpIEZUC-EcOqNczkxO_FkGRf0TK8YTfdwq_JNal631pRRr7AVVw6zVWwcs7k_aCCEnGcLXAIdakKP-FqI9iPOJmA1Yb3SEsKFZqtv3DaNYcMrmhZHmUMWojr9NvTBuBLhyHCd5hHa7uOs30kR-xzKpqHszp__UIht_ATx329kovJuaIBcHtXT3MjzSzfAg__yZ8CVDRZRwFhqDU9LPSS6aNLUUrUTSZHoq8anB-mAPgmVliWVx4w0f2DnYjl1Fg&lib=MJaMAVlhKifv9I0KygrqMS0zblpX7mP-A&ip=" + encodeURIComponent(ip), {
-    method: "GET",
-    mode: "no-cors" // ✅ ปิดการตรวจสอบ CORS
-  })
-  .then(() => console.log("✅ Sent IP to Google Apps Script"))
-  .catch(err => console.error("❌ Error sending IP:", err));
+  fetch("https://script.googleusercontent.com/macros/echo?user_content_key=T8Jn5EJBRRNAjpIEZUC-EcOqNczkxO_FkGRf0TK8YTfdwq_JNal631pRRr7AVVw6zVWwcs7k_aCCEnGcLXAIdakKP-FqI9iPOJmA1Yb3SEsKFZqtv3DaNYcMrmhZHmUMWojr9NvTBuBLhyHCd5hHa7uOs30kR-xzKpqHszp__UIht_ATx329kovJuaIBcHtXT3MjzSzfAg__yZ8CVDRZRwFhqDU9LPSS6aNLUUrUTSZHoq8anB-mAPgmVliWVx4w0f2DnYjl1Fg&lib=MJaMAVlhKifv9I0KygrqMS0zblpX7mP-A&ip=" + encodeURIComponent(ip))
+    .then(response => response.json())
+    .then(data => console.log("✅ Server Response:", data))
+    .catch(err => console.error("❌ Error sending IP:", err));
 }
 
-fetch('https://api64.ipify.org?format=json') // ✅ ใช้ ipify เพื่อดึง IP
+fetch('https://api64.ipify.org?format=json') // ✅ ใช้ ipify
   .then(response => response.json())
   .then(data => {
     if (data.ip) {
       console.log("📌 IP Detected:", data.ip);
-      sendIPToGoogle(data.ip); // ✅ ส่ง IP ไปยัง Google Apps Script
+      sendIPToGoogle(data.ip);
     } else {
       console.error("❌ Failed to fetch IP Address");
     }
