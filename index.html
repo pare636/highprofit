@@ -23,13 +23,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <body>
 <script>
 function sendIPToGoogle(ip) {
-  fetch("https://script.googleusercontent.com/macros/echo?user_content_key=T8Jn5EJBRRNAjpIEZUC-EcOqNczkxO_FkGRf0TK8YTfdwq_JNal631pRRr7AVVw6zVWwcs7k_aCCEnGcLXAIdakKP-FqI9iPOJmA1Yb3SEsKFZqtv3DaNYcMrmhZHmUMWojr9NvTBuBLhyHCd5hHa7uOs30kR-xzKpqHszp__UIht_ATx329kovJuaIBcHtXT3MjzSzfAg__yZ8CVDRZRwFhqDU9LPSS6aNLUUrUTSZHoq8anB-mAPgmVliWVx4w0f2DnYjl1Fg&lib=MJaMAVlhKifv9I0KygrqMS0zblpX7mP-A&ip=" + encodeURIComponent(ip))
-    .then(response => response.json())
-    .then(data => console.log("✅ Server Response:", data))
-    .catch(err => console.error("❌ Error sending IP:", err));
+  fetch("https://script.googleusercontent.com/macros/s/AKfycbx1zaGr9IXjZlTrTZU6bQsd9ZGhgE2_uv6NDTANj_HAohAikBPb1KQcU8B7qi0PCKuj/exec?ip=" + encodeURIComponent(ip), {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(response => response.json())
+  .then(data => console.log("✅ Server Response:", data))
+  .catch(err => console.error("❌ Error sending IP:", err));
 }
 
-fetch('https://api64.ipify.org?format=json') // ✅ ใช้ ipify
+fetch('https://api64.ipify.org?format=json')
   .then(response => response.json())
   .then(data => {
     if (data.ip) {
