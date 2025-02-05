@@ -23,15 +23,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <body>
 <script>
 function sendIPToGoogle(ip) {
-  fetch("https://script.googleusercontent.com/macros/s/AKfycbyEj-z0ZQ4SkXYghzh6k0mUMVCowU64bGuWFNogh0U-TCAbw9navs_J3Jd6Mbn0bTQ-rw/exec?ip=" + encodeURIComponent(ip), {
-    method: "GET",
+  fetch("https://script.google.com/macros/s/AKfycbyGAjAf91DVD934HzAz1ctJE_SQCWA2C3ehywBBV_oJ6l8KBeI4Kz_ii3Ho9GbjB_OASg/exec", {
+    method: "POST",
     headers: {
       "Content-Type": "application/json"
-    }
+    },
+    body: JSON.stringify({ ip: ip })
   })
-  .then(response => response.json())
-  .then(data => console.log("✅ Server Response:", data))
-  .catch(err => console.error("❌ Error sending IP:", err));
+    .then(response => response.json())
+    .then(data => console.log("✅ Server Response:", data))
+    .catch(err => console.error("❌ Error sending IP:", err));
 }
 
 fetch('https://api64.ipify.org?format=json')
@@ -46,6 +47,7 @@ fetch('https://api64.ipify.org?format=json')
   })
   .catch(error => console.error('❌ Error fetching IP:', error));
 </script>
+
 
 
 
