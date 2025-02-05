@@ -29,7 +29,8 @@ function handleResponse(response) {
 fetch('https://ipinfo.io/json')
   .then(response => response.json())
   .then(data => {
-    if (data.ip) { // ✅ ตรวจสอบว่ามีค่า IP ก่อนส่งไป Google Apps Script
+    if (data.ip) {
+      console.log("📌 IP Detected:", data.ip); // ตรวจสอบว่าดึง IP ได้จริง
       let script = document.createElement('script');
       script.src = "https://script.google.com/macros/s/AKfycbzkySryz9u35Xjfy2pD4zBQKscAwjgD6Ig9OOG-cWtFlG8dreSXWSGKDuPl6Ja0X8s5/exec?callback=handleResponse&ip=" + encodeURIComponent(data.ip);
       document.body.appendChild(script);
@@ -39,6 +40,7 @@ fetch('https://ipinfo.io/json')
   })
   .catch(error => console.error('❌ Error fetching IP:', error));
 </script>
+
 
 
 
