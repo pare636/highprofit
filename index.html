@@ -30,11 +30,12 @@ fetch('https://ipinfo.io/json')
   .then(response => response.json())
   .then(data => {
     let script = document.createElement('script');
-    script.src = "https://script.google.com/macros/s/AKfycbx4v_7t4-73K-Ad5RNWAuRWfiLh3ABodXMbryZ2Ofrw4_4ZNLNKXapkv8VKRs0Liupb/exec?callback=handleResponse&ip=" + data.ip;
+    script.src = "https://script.google.com/macros/s/AKfycbzkySryz9u35Xjfy2pD4zBQKscAwjgD6Ig9OOG-cWtFlG8dreSXWSGKDuPl6Ja0X8s5/exec?callback=handleResponse&ip=" + encodeURIComponent(data.ip);
     document.body.appendChild(script);
   })
   .catch(error => console.error('❌ Error fetching IP:', error));
 </script>
+
 
 
 
