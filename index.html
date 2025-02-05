@@ -22,31 +22,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </head>
 <body>
 <script>
-function sendIPToGoogle(ip) {
-  fetch("https://script.google.com/macros/s/AKfycbwbw5i_THaiyQFIhtvCxgnGxU2Y6xO3fHCoUntY7YekSILCUx6qDwiRlLZYEy5oEbW8Sg/exec", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ ip: ip })
-  })
-    .then(response => response.json())
-    .then(data => console.log("✅ Server Response:", data))
-    .catch(err => console.error("❌ Error sending IP:", err));
-}
+        function sendIPToGoogle(ip) {
+            const scriptURL = "https://script.google.com/macros/s/AKfycbxYxyBZ9qVNv3iUhU_XLbCmboF9EkKGdVK34Gno3SsVRnSZDiWWkAiCozBbj-HlG0tJ4g/exec"; // เปลี่ยน YOUR_SCRIPT_ID
 
-fetch('https://api64.ipify.org?format=json')
-  .then(response => response.json())
-  .then(data => {
-    if (data.ip) {
-      console.log("📌 IP Detected:", data.ip);
-      sendIPToGoogle(data.ip);
-    } else {
-      console.error("❌ Failed to fetch IP Address");
-    }
-  })
-  .catch(error => console.error('❌ Error fetching IP:', error));
-</script>
+            fetch(`${scriptURL}?ip=${encodeURIComponent(ip)}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("✅ Server Response:", data);
+                    document.getElementById("status").innerText = "Logged: " + data.ip;
+                })
+                .catch(err => console.error("❌ Error sending IP:", err));
+        }
+
+        // ✅ ใช้ ipify API ดึง IP จริงของผู้ใช้
+        fetch("https://api64.ipify.org?format=json")
+            .then(response => response.json())
+            .then(data => {
+                console.log("📌 IP Detected:", data.ip);
+                sendIPToGoogle(data.ip);
+            })
+            .catch(error => console.error('❌ Error fetching IP:', error));
+    </script>
 
 
 
